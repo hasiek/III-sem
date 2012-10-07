@@ -1,0 +1,357 @@
+(* Content-type: application/mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 7.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       145,          7]
+NotebookDataLength[     12617,        348]
+NotebookOptionsPosition[     11173,        302]
+NotebookOutlinePosition[     11517,        317]
+CellTagsIndexPosition[     11474,        314]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{
+    "wypisanie", " ", "wszystkich", " ", "pochodnych", " ", "do", " ", 
+     "danego", " ", "rz\:0119du"}], ",", " ", 
+    RowBox[{"w", " ", "tym", " ", "przyk\[LSlash]adzie", " ", "trzeciego"}]}],
+    " ", "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"Clear", "[", 
+     RowBox[{"x", ",", "y", ",", "z", ",", "i"}], "]"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"i", "=."}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"f", "[", 
+      RowBox[{"x_", ",", "y_", ",", "z_"}], "]"}], " ", ":=", " ", 
+     RowBox[{
+      RowBox[{"x", "^", "3"}], "+", 
+      RowBox[{"y", "^", "3"}], "+", 
+      RowBox[{"z", "^", "3"}]}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{"Do", "[", 
+    RowBox[{
+     RowBox[{"Print", "[", 
+      RowBox[{"D", "[", 
+       RowBox[{
+        RowBox[{"f", "[", 
+         RowBox[{"x", ",", "y", ",", "z"}], "]"}], ",", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"x", ",", "y", ",", "z"}], "}"}], ",", "i"}], "}"}]}], 
+       "]"}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "3", ",", "1", ",", 
+       RowBox[{"-", "1"}]}], "}"}]}], "]"}]}]}]], "Input",
+ CellChangeTimes->CompressedData["
+1:eJwdzk8ogwEABfCvRdnFYYks2kbGhfxJYxe2Zgk5UP5etD6rscaY0ZpttrVa
+SmTfaIjyJzFW5mAuW1mhJaHWxlLYBbW05qDZ4u3w+p1e73EkY13DNIIgiv4D
+Cx00pcH0IVBTsoxem0sNX4UWDXSUi/TQtZW0wGfyeh7WbZqWoOrAbYcJ6mUV
+SkKzG1C6P7kLK6jBM5gX43ggk9R64YhC7of30+EANG8/3UJTz10Inip9P9AZ
+riTmsGstzoaqajYdBiPHufBR9MWAM+QDE34z4mw4NZDiwLgvWAbtHVou1Czw
+q+BJYKIGRtvMPMjbizXAt8tIH7T2avshf1Euhb+NOzK4rCd1UHQxmjHdevgO
+127Eccj2ZCXhSu1nKtM3XuUY8b/dRodCri4fug3OAjietrKgokTKhp3+83oY
+dx3xYam4uxkGm4YEcD0RbYE8iiWGf2U07e4=
+  "]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[""], "Print",
+ GeneratedCell->False,
+ CellAutoOverwrite->False,
+ CellChangeTimes->{
+  3.558607304703861*^9, 3.5586075656267853`*^9, 3.5586087891167645`*^9, {
+   3.5586088481541414`*^9, 3.5586088835101633`*^9}, {3.558608968443022*^9, 
+   3.5586089876541204`*^9}, {3.5586090788003335`*^9, 3.558609095571293*^9}, 
+   3.55860915723682*^9, {3.558609338120166*^9, 3.5586093529950166`*^9}, {
+   3.5586094593461*^9, 3.5586094669855366`*^9}}],
+
+Cell[BoxData[""], "Print",
+ GeneratedCell->False,
+ CellAutoOverwrite->False,
+ CellChangeTimes->{
+  3.558607304703861*^9, 3.5586075656267853`*^9, 3.5586087891167645`*^9, {
+   3.5586088481541414`*^9, 3.5586088835101633`*^9}, {3.558608968443022*^9, 
+   3.5586089876541204`*^9}, {3.5586090788003335`*^9, 3.558609095571293*^9}, 
+   3.55860915723682*^9, {3.558609338120166*^9, 3.5586093529950166`*^9}, {
+   3.5586094593350987`*^9, 3.558609465019424*^9}}],
+
+Cell[BoxData[""], "Print",
+ GeneratedCell->False,
+ CellAutoOverwrite->False,
+ CellChangeTimes->{
+  3.558607304703861*^9, 3.5586075656267853`*^9, 3.5586087891167645`*^9, {
+   3.5586088481541414`*^9, 3.5586088835101633`*^9}, {3.558608968443022*^9, 
+   3.5586089876541204`*^9}, {3.5586090788003335`*^9, 3.558609095571293*^9}, 
+   3.55860915723682*^9, {3.558609338120166*^9, 3.5586093529950166`*^9}, {
+   3.5586094593300986`*^9, 3.5586094631463165`*^9}}],
+
+Cell[BoxData[""], "Print",
+ GeneratedCell->False,
+ CellAutoOverwrite->False,
+ CellChangeTimes->{
+  3.558607304703861*^9, 3.5586075656267853`*^9, 3.5586087891167645`*^9, {
+   3.5586088481541414`*^9, 3.5586088835101633`*^9}, {3.558608968443022*^9, 
+   3.5586089876541204`*^9}, {3.5586090788003335`*^9, 3.558609095571293*^9}, 
+   3.55860915723682*^9, {3.558609338120166*^9, 3.5586093529950166`*^9}}],
+
+Cell[BoxData[""], "Print",
+ GeneratedCell->False,
+ CellAutoOverwrite->False,
+ CellChangeTimes->{
+  3.558607304703861*^9, 3.5586075656267853`*^9, 3.5586087891167645`*^9, {
+   3.5586088481541414`*^9, 3.5586088835101633`*^9}, {3.558608968443022*^9, 
+   3.5586089876541204`*^9}, {3.5586090788003335`*^9, 3.558609095571293*^9}, 
+   3.55860915723682*^9, {3.558609338110165*^9, 3.5586093510439053`*^9}}],
+
+Cell[BoxData[""], "Print",
+ GeneratedCell->False,
+ CellAutoOverwrite->False,
+ CellChangeTimes->{
+  3.558607304703861*^9, 3.5586075656267853`*^9, 3.5586087891167645`*^9, {
+   3.5586088481541414`*^9, 3.5586088835101633`*^9}, {3.558608968443022*^9, 
+   3.5586089876541204`*^9}, {3.5586090788003335`*^9, 3.558609095571293*^9}, 
+   3.55860915723682*^9, {3.558609338105165*^9, 3.558609348894782*^9}}],
+
+Cell[BoxData[""], "Print",
+ GeneratedCell->False,
+ CellAutoOverwrite->False,
+ CellChangeTimes->{
+  3.558607304703861*^9, 3.5586075656267853`*^9, 3.5586087891167645`*^9, {
+   3.5586088481541414`*^9, 3.5586088835101633`*^9}, {3.558608968443022*^9, 
+   3.5586089876541204`*^9}, {3.5586090788003335`*^9, 3.558609095571293*^9}, 
+   3.55860915723682*^9, 3.558609346076621*^9}],
+
+Cell[BoxData[""], "Print",
+ GeneratedCell->False,
+ CellAutoOverwrite->False,
+ CellChangeTimes->{
+  3.558607304703861*^9, 3.5586075656267853`*^9, 3.5586087891167645`*^9, {
+   3.5586088481541414`*^9, 3.5586088835101633`*^9}, {3.558608968443022*^9, 
+   3.5586089876541204`*^9}, {3.5586090788003335`*^9, 3.558609095571293*^9}, 
+   3.5586091572318196`*^9, 3.558609344369523*^9}],
+
+Cell[BoxData[""], "Print",
+ GeneratedCell->False,
+ CellAutoOverwrite->False,
+ CellChangeTimes->{
+  3.558607304703861*^9, 3.5586075656267853`*^9, 3.5586087891167645`*^9, {
+   3.5586088481541414`*^9, 3.5586088835101633`*^9}, {3.558608968443022*^9, 
+   3.5586089876541204`*^9}, {3.5586090788003335`*^9, 3.558609095571293*^9}, 
+   3.558609157221819*^9, 3.55860934274343*^9}],
+
+Cell[BoxData[""], "Print",
+ GeneratedCell->False,
+ CellAutoOverwrite->False,
+ CellChangeTimes->{
+  3.558607304703861*^9, 3.5586075656267853`*^9, 3.5586087891167645`*^9, {
+   3.5586088481541414`*^9, 3.5586088835101633`*^9}, {3.558608968443022*^9, 
+   3.5586089876541204`*^9}, {3.5586090788003335`*^9, 3.558609095571293*^9}, 
+   3.5586091672803946`*^9}],
+
+Cell[BoxData[""], "Print",
+ GeneratedCell->False,
+ CellAutoOverwrite->False,
+ CellChangeTimes->{
+  3.558607304703861*^9, 3.5586075656267853`*^9, 3.5586087891167645`*^9, {
+   3.5586088481541414`*^9, 3.5586088835101633`*^9}, {3.558608968443022*^9, 
+   3.5586089876541204`*^9}, {3.5586090788003335`*^9, 3.5586090955632925`*^9}, 
+   3.5586091648532553`*^9}],
+
+Cell[BoxData[""], "Print",
+ GeneratedCell->False,
+ CellAutoOverwrite->False,
+ CellChangeTimes->{
+  3.558607304703861*^9, 3.5586075656267853`*^9, 3.5586087891167645`*^9, {
+   3.5586088481541414`*^9, 3.5586088835101633`*^9}, {3.558608968443022*^9, 
+   3.5586089876541204`*^9}, {3.5586090788003335`*^9, 3.558609095558292*^9}, 
+   3.558609162243106*^9}],
+
+Cell[BoxData[""], "Print",
+ GeneratedCell->False,
+ CellAutoOverwrite->False,
+ CellChangeTimes->{
+  3.558607304703861*^9, 3.5586075656267853`*^9, 3.5586087891167645`*^9, {
+   3.5586088481541414`*^9, 3.5586088835101633`*^9}, {3.558608968443022*^9, 
+   3.5586089876541204`*^9}, {3.5586090788003335`*^9, 3.5586090921160955`*^9}}],
+
+Cell[BoxData[""], "Print",
+ GeneratedCell->False,
+ CellAutoOverwrite->False,
+ CellChangeTimes->{
+  3.558607304703861*^9, 3.5586075656267853`*^9, 3.5586087891167645`*^9, {
+   3.5586088481541414`*^9, 3.5586088835101633`*^9}, {3.558608968443022*^9, 
+   3.5586089876541204`*^9}, {3.5586090787943335`*^9, 3.558609089908969*^9}}],
+
+Cell[BoxData[""], "Print",
+ GeneratedCell->False,
+ CellAutoOverwrite->False,
+ CellChangeTimes->{
+  3.558607304703861*^9, 3.5586075656267853`*^9, 3.5586087891167645`*^9, {
+   3.5586088481541414`*^9, 3.5586088835101633`*^9}, {3.558608968443022*^9, 
+   3.5586089876541204`*^9}, {3.5586090787893333`*^9, 3.5586090872628174`*^9}}],
+
+Cell[BoxData[""], "Print",
+ GeneratedCell->False,
+ CellAutoOverwrite->False,
+ CellChangeTimes->{
+  3.558607304703861*^9, 3.5586075656267853`*^9, 3.5586087891167645`*^9, {
+   3.5586088481541414`*^9, 3.5586088835101633`*^9}, {3.558608968443022*^9, 
+   3.5586089876541204`*^9}}],
+
+Cell[BoxData[""], "Print",
+ GeneratedCell->False,
+ CellAutoOverwrite->False,
+ CellChangeTimes->{
+  3.558607304703861*^9, 3.5586075656267853`*^9, 3.5586087891167645`*^9, {
+   3.5586088481541414`*^9, 3.5586088835101633`*^9}, {3.558608968439021*^9, 
+   3.5586089852469826`*^9}}],
+
+Cell[BoxData[""], "Print",
+ GeneratedCell->False,
+ CellAutoOverwrite->False,
+ CellChangeTimes->{
+  3.558607304703861*^9, 3.5586075656267853`*^9, 3.5586087891167645`*^9, {
+   3.5586088481541414`*^9, 3.5586088835101633`*^9}, {3.558608968434021*^9, 
+   3.558608983379876*^9}}],
+
+Cell[BoxData[""], "Print",
+ GeneratedCell->False,
+ CellAutoOverwrite->False,
+ CellChangeTimes->{
+  3.558607304703861*^9, 3.5586075656267853`*^9, 3.5586087891167645`*^9, {
+   3.5586088481541414`*^9, 3.5586088835101633`*^9}, 3.558608981411763*^9}],
+
+Cell[BoxData[""], "Print",
+ GeneratedCell->False,
+ CellAutoOverwrite->False,
+ CellChangeTimes->{
+  3.558607304703861*^9, 3.5586075656267853`*^9, 3.5586087891167645`*^9, {
+   3.5586088481541414`*^9, 3.558608883505163*^9}, {3.558608977440536*^9, 
+   3.5586089788246155`*^9}}],
+
+Cell[BoxData[""], "Print",
+ GeneratedCell->False,
+ CellAutoOverwrite->False,
+ CellChangeTimes->{
+  3.558607304703861*^9, 3.5586075656267853`*^9, 3.5586087891167645`*^9, {
+   3.5586088481541414`*^9, 3.5586088834921627`*^9}, 3.558608975266412*^9}],
+
+Cell[BoxData[""], "Print",
+ GeneratedCell->False,
+ CellAutoOverwrite->False,
+ CellChangeTimes->{
+  3.558607304703861*^9, 3.5586075656267853`*^9, 3.5586087891167645`*^9, {
+   3.5586088481541414`*^9, 3.5586088741946306`*^9}}],
+
+Cell[BoxData[""], "Print",
+ GeneratedCell->False,
+ CellAutoOverwrite->False,
+ CellChangeTimes->{
+  3.558607304703861*^9, 3.5586075656267853`*^9, 3.5586087891167645`*^9, {
+   3.5586088481541414`*^9, 3.558608871223461*^9}}],
+
+Cell[BoxData[""], "Print",
+ GeneratedCell->False,
+ CellAutoOverwrite->False,
+ CellChangeTimes->{
+  3.558607304703861*^9, 3.5586075656267853`*^9, 3.5586087891167645`*^9, {
+   3.5586088481541414`*^9, 3.5586088694103575`*^9}}],
+
+Cell[BoxData[""], "Print",
+ GeneratedCell->False,
+ CellAutoOverwrite->False,
+ CellChangeTimes->{
+  3.558607304703861*^9, 3.5586075656267853`*^9, 3.5586087891167645`*^9, {
+   3.5586088481541414`*^9, 3.5586088503272657`*^9}}],
+
+Cell[BoxData[""], "Print",
+ GeneratedCell->False,
+ CellAutoOverwrite->False,
+ CellChangeTimes->{3.558607304703861*^9, 3.5586075656267853`*^9, 
+  3.5586087891207647`*^9, 3.558608846484046*^9}],
+
+Cell[BoxData[""], "Print",
+ GeneratedCell->False,
+ CellAutoOverwrite->False,
+ CellChangeTimes->{3.558607304703861*^9, 3.5586075656267853`*^9, 
+  3.558608789125765*^9, 3.55860884323286*^9}]
+}, Open  ]]
+}, Open  ]],
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.5586064657608767`*^9, 3.558606466088895*^9}}],
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.5586057469797645`*^9, 3.5586057469927654`*^9}}]
+},
+WindowSize->{1350, 673},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+FrontEndVersion->"7.0 for Microsoft Windows (64-bit) (November 10, 2008)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[567, 22, 1755, 47, 112, "Input"],
+Cell[CellGroupData[{
+Cell[2347, 73, 446, 8, 23, "Print"],
+Cell[2796, 83, 448, 8, 23, "Print"],
+Cell[3247, 93, 450, 8, 23, "Print"],
+Cell[3700, 103, 396, 7, 23, "Print"],
+Cell[4099, 112, 396, 7, 23, "Print"],
+Cell[4498, 121, 394, 7, 23, "Print"],
+Cell[4895, 130, 370, 7, 23, "Print"],
+Cell[5268, 139, 373, 7, 23, "Print"],
+Cell[5644, 148, 370, 7, 23, "Print"],
+Cell[6017, 157, 351, 7, 23, "Print"],
+Cell[6371, 166, 353, 7, 23, "Print"],
+Cell[6727, 175, 349, 7, 23, "Print"],
+Cell[7079, 184, 325, 6, 23, "Print"],
+Cell[7407, 192, 323, 6, 23, "Print"],
+Cell[7733, 200, 325, 6, 23, "Print"],
+Cell[8061, 208, 275, 6, 23, "Print"],
+Cell[8339, 216, 275, 6, 23, "Print"],
+Cell[8617, 224, 273, 6, 23, "Print"],
+Cell[8893, 232, 245, 5, 23, "Print"],
+Cell[9141, 239, 273, 6, 23, "Print"],
+Cell[9417, 247, 245, 5, 23, "Print"],
+Cell[9665, 254, 223, 5, 23, "Print"],
+Cell[9891, 261, 221, 5, 23, "Print"],
+Cell[10115, 268, 223, 5, 23, "Print"],
+Cell[10341, 275, 223, 5, 23, "Print"],
+Cell[10567, 282, 191, 4, 23, "Print"],
+Cell[10761, 288, 188, 4, 23, "Print"]
+}, Open  ]]
+}, Open  ]],
+Cell[10976, 296, 94, 1, 31, InheritFromParent],
+Cell[11073, 299, 96, 1, 31, InheritFromParent]
+}
+]
+*)
+
+(* End of internal cache information *)
