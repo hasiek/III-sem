@@ -4,7 +4,7 @@
 #include <stdio.h>
 
 int main() {
-	
+    
 	char tkpk[4];
 	char ptable[12];
 	int pesel[12];
@@ -12,8 +12,8 @@ int main() {
 	int tkpkFirst, tkpkSec, tkpkThird;
 	int counter, tests, i, check, checkYear = 0, j;
 	int y = 0, d = 0, gender = 0, yy =0, c = 0, g = 0;
-	int year, month, day, dayJan, dayYear, dayWeek;
-	int peselsMatching = 0, control, temp;
+	int year, month, day = 0, dayJan, dayYear, dayWeek;
+	int peselsMatching = 0, control, temp = 12;
 	
 	scanf ("%s", tkpk);
 	scanf ("%d", &tests);
@@ -41,11 +41,14 @@ int main() {
 			control = 1*pesel[0] + 3*pesel[1] + 7*pesel[2] + 9*pesel[3] + 1*pesel[4] + 3*pesel[5] + 7*pesel[6] + 9*pesel[7] + 1*pesel[8] + 3*pesel[9];
 			control = 10 - (control % 10);
 			i = 1;
-			while (control != pesel[10]) {
+			if (temp >= 0 && temp < 11) {
+				while (control != pesel[10] && i < 10) {
             
-				pesel[temp] = i;
-				control = 1*pesel[0] + 3*pesel[1] + 7*pesel[2] + 9*pesel[3] + 1*pesel[4] + 3*pesel[5] + 7*pesel[6] + 9*pesel[7] + 1*pesel[8] + 3*pesel[9];
-				i++;
+					pesel[temp] = i;
+					control = 1*pesel[0] + 3*pesel[1] + 7*pesel[2] + 9*pesel[3] + 1*pesel[4] + 3*pesel[5] + 7*pesel[6] + 9*pesel[7] + 1*pesel[8] + 3*pesel[9];
+					control = 10 - (control % 10);
+					i++;
+				}
 			}
 			
 			tkpkFirst = tkpk[2] - 48;
@@ -53,15 +56,7 @@ int main() {
 			
 			// start of year checking
 			
-			if (check  == 0) {
-				
-				y = 1;
-				
-			}
-			else {
-				
 				if (pesel[2] == 0 || pesel[2] == 1) {
-					
 					year = 1900 + 10*pesel[0]+pesel[1];
 					month = 10*pesel[2] + pesel[3];
 					day = 10*pesel[4]+pesel[5];
@@ -94,23 +89,30 @@ int main() {
 					day = 10*pesel[4]+pesel[5];
 					
 				}
+
+				if (check  == 0) {
 				
-				if ((year%4 == 0 && year%100 != 0) || year%400 == 0) {
-					
-					checkYear = 1;
-					
+					y = 1;
+				
 				}
 				else {
-					
-					checkYear = 2;
-					
-				}
 				
-				if (check == checkYear) {
+					if ((year%4 == 0 && year%100 != 0) || year%400 == 0) {
 					
-					y = 1;
+						checkYear = 1;
 					
-				}
+					}
+					else {
+					
+						checkYear = 2;
+					
+					}
+				
+					if (check == checkYear) {
+					
+						y = 1;
+					
+					}
 			}
 			
 			// end of year checking a year
@@ -181,16 +183,19 @@ int main() {
 				// end of gender checking
 				
 				// final checking
+
+				control = 1*pesel[0] + 3*pesel[1] + 7*pesel[2] + 9*pesel[3] + 1*pesel[4] + 3*pesel[5] + 7*pesel[6] + 9*pesel[7] + 1*pesel[8] + 3*pesel[9];
+				control = 10 - (control % 10);
 				
-				if (y == 1 && d == 1 && gender == 1) {
+				if (y == 1 && d == 1 && gender == 1 && control == pesel[10] && day > 0 && day < 32) {
 					
 					peselsMatching++;
 					
 				}
-			
 	}
 	
 	printf ("%d", peselsMatching);
 	
 	return 0;
 }
+
