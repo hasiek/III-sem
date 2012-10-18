@@ -1,28 +1,62 @@
-// Extended Euklides' Algorythm, 09.10.2012
-// JUST A SKETCH
-
 #include <stdio.h>
 
 int main() {
-
-    int a, b, q, r, nwd = 0;
-    int xi1 = 1, xi2 = 0, xi = 1, yi2 = 0, yi1 = 1, yi = 0;
-    
-    scanf ("%d %d", &a, &b);
-    q = a/b;
-    r = a % b;
-    nwd = b - nwd;
-    yi = (q - 1) - yi;
-    
-    while (r != 0) {
-    
-                
-          
-    }
-    
-    
-    while (b != 0) {
-          b = getchar();      
-    }
-    return 0;
+	
+	int r, q, a, b, nwd;
+	int x, x1, x2, y, y1, y2;
+	int aRead, bRead;
+	
+	aRead = 1547;
+	bRead = 560;
+	
+	if (bRead > aRead) {
+	
+	nwd = bRead;
+	bRead = aRead;
+	aRead = nwd;
+	
+	}
+	
+	a = aRead;
+	b = bRead;
+	
+	q = a / b;
+	r = a % b;
+	nwd = b;
+	
+	x2 = 1;
+	x1 = 0;
+	y2 = 0;
+	y1 = 1;
+	x = 1;
+	y = y2 - (q-1) * y1;
+	
+	while (r != 0) {
+		
+		a = b;
+		b = r;
+		 
+		x = x2 - q*x1;
+		x2 = x1;
+		x1 = x;
+		 
+		y = y2 - q*y1;
+		y2 = y1;
+		y1 = y;     
+		 
+		nwd = r;
+		q = a / b;
+		r = a % b;
+	
+	}
+	
+	printf("NWD(%d, %d) = %d, kombinacja liniowa: %d * %d + %d * %d\n", aRead, bRead, nwd, x, aRead, y, bRead);
+ 
+	if (nwd == 1) {
+		
+		printf("%d * %d mod %d = 1", bRead, y, aRead);
+	
+	}
+		
+	return 0;
 }
