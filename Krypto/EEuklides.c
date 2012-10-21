@@ -51,12 +51,6 @@ int main() {
 	}
 	
 	printf("NWD(%d, %d) = %d, kombinacja liniowa: %d * %d + %d * %d\n", aRead, bRead, nwd, x, aRead, y, bRead);
- 
-	if (nwd == 1) {
-		
-		printf("%d * %d mod %d = 1", bRead, y, aRead);
-	
-	}
 		
 	return 0;
 }
