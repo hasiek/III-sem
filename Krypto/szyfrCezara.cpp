@@ -18,7 +18,9 @@ int main() {
 		system("pause");
 		return 1;
 	}
-
+	
+	// szyfrowanie
+	
 	while (fgets(wejscie, sizeof wejscie, plik)) {
 
 		for (int i = 0; i < sizeof wejscie; i++) {
