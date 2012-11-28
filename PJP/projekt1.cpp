@@ -10,7 +10,7 @@ using namespace std;
 BITMAP* prepareBitmap (char* path); 
 void destroyAllBitmaps(BITMAP* name1, BITMAP* name2, BITMAP* name3, BITMAP* name4, BITMAP* name5);
 vector <struct Coordinates> drawMap(BITMAP* background, BITMAP* obstacles, BITMAP* buff, BITMAP* obj, int numObst);
-void buffering (BITMAP* background, BITMAP* obstacle, BITMAP* buff, BITMAP* snake, BITMAP* bonus, vector <struct Coordinates> obstCoor, int numObst, int snake_x, int snake_y, int end, bool eaten);
+void buffering (BITMAP* background, BITMAP* obstacle, BITMAP* buff, BITMAP* snake, BITMAP* bonus, vector <struct Coordinates> obstCoor, int numObst, int snake_x, int snake_y, int end);
 char detectCollision (int snake_x, int snake_y, vector <struct Coordinates> obstCoor);
 bool detectIfAte (int snake_x, int snake_y, struct Coordinates bonus);
 void playGame(BITMAP* backgr, BITMAP* buffer, BITMAP* obst, BITMAP* snake, BITMAP* bonus, vector <struct Coordinates> obstCoor);
@@ -131,15 +131,14 @@ vector <struct Coordinates> drawMap(BITMAP* background, BITMAP* obstacles, BITMA
 
 // function which makes double buffering
 
-void buffering (BITMAP* backgr, BITMAP* buff, BITMAP* obst, BITMAP* snake, BITMAP* bonus, vector <struct Coordinates> obstCoor, int numObst, int snake_x, int snake_y, int end, bool eaten) {
+void buffering (BITMAP* backgr, BITMAP* buff, BITMAP* obst, BITMAP* snake, BITMAP* bonus, vector <struct Coordinates> obstCoor, int numObst, int snake_x, int snake_y, int end) {
      
      if (end == 'x') {
               
          clear_to_color(buff, makecol(0,0,0));
          textout_ex(buff,font,"Game Over",400,300 ,makecol(255,0,255),-1);
          blit (buff, screen, 0, 0, 0, 0, buff->w, buff->h);   
-         readkey();  
-           
+         readkey();    
      }
      clear_to_color(buff, makecol(128,128,128));      
      blit(backgr, buff, 0, 0, 0, 0, backgr->w, backgr->h);
@@ -149,7 +148,7 @@ void buffering (BITMAP* backgr, BITMAP* buff, BITMAP* obst, BITMAP* snake, BITMA
              
      }
      blit(snake, buff, 0, 0, snake_x, snake_y, snake->w, snake->h);
-     if (eaten != true) blit (bonus, buff, 0, 0, 200, 150, bonus->w, bonus->h);
+     blit (bonus, buff, 0, 0, 200, 150, bonus->w, bonus->h);
      blit(buff, screen, 0, 0, 0, 0, 800, 600);
 };
 
@@ -194,10 +193,7 @@ bool detectIfAte (int snake_x, int snake_y, struct Coordinates bonus) {
      bool eaten;
      
      if ((snake_x + 31 >= bonus.x && snake_x <= bonus.x + 31) && (snake_y+31 >= bonus.y && snake_y <= bonus.y + 31)) eaten = true; 
-     else if ((snake_x <= bonus.x + 31 && snake_x >= bonus.x) && (snake_y+31 >= bonus.y && snake_y <= bonus.y + 31)) eaten = true;
-     else if ((snake_y + 31 >= bonus.y && snake_y <= bonus.y + 31) && (snake_x+31 >= bonus.x && snake_x <= bonus.x + 31)) eaten = true;
-     else if ((snake_y >= bonus.y && snake_y <= bonus.y + 31) && (snake_x+31 >= bonus.x && snake_x <= bonus.x + 31)) eaten = true;
-     return eaten;
+     
 };
 
 // function which moves a snake
@@ -205,15 +201,14 @@ bool detectIfAte (int snake_x, int snake_y, struct Coordinates bonus) {
 void playGame (BITMAP* backgr, BITMAP* buffer, BITMAP* obst, BITMAP* snake, BITMAP* bonus, vector <struct Coordinates> obstCoor) {
      
     char before, end;
-    bool eaten = false;
-    struct Coordinates bonuses;
-    bonuses.x = 200;
-    bonuses.y = 150;
+    struct Coordinates bonus;
+    bonus.x = 200;
+    bonus.y = 150;
     int snake_x = 100;
     int snake_y = 100;
     while(!key[KEY_ESC]) {
                   
-         buffering (backgr, buffer, obst, snake, bonus, obstCoor, 25, snake_x, snake_y, end, eaten); 
+         buffering (backgr, buffer, obst, snake, bonus, obstCoor, 25, snake_x, snake_y, end); 
          while (speed > 0) {                
                 
              if (key[KEY_LEFT]) {
@@ -243,7 +238,6 @@ void playGame (BITMAP* backgr, BITMAP* buffer, BITMAP* obst, BITMAP* snake, BITM
                 speed--;
          }
          
-      end = detectCollision (snake_x, snake_y, obstCoor); 
-      eaten = detectIfAte(snake_x, snake_y, bonuses);
+      end = detectCollision (snake_x, snake_y, obstCoor, buffer); 
     }
 };
