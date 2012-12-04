@@ -2,6 +2,8 @@
 #include <cstdlib>
 #include <time.h>
 #include <vector>
+#include <list>
+#include <iterator>
 
 #define OBSTSIZE 31
 
@@ -10,10 +12,12 @@ using namespace std;
 BITMAP* prepareBitmap (char* path); 
 void destroyAllBitmaps(BITMAP* name1, BITMAP* name2, BITMAP* name3, BITMAP* name4, BITMAP* name5);
 vector <struct Coordinates> drawMap(BITMAP* background, BITMAP* obstacles, BITMAP* buff, BITMAP* obj, int numObst);
-void buffering (BITMAP* background, BITMAP* obstacle, BITMAP* buff, BITMAP* snake, BITMAP* bonus, vector <struct Coordinates> obstCoor, int numObst, int snake_x, int snake_y, int end);
-char detectCollision (int snake_x, int snake_y, vector <struct Coordinates> obstCoor);
-bool detectIfAte (int snake_x, int snake_y, struct Coordinates bonus);
+void buffering (BITMAP* background, BITMAP* obstacle, BITMAP* buff, BITMAP* snake, BITMAP* bonus, struct Coordinates bonuses, vector <struct Coordinates> obstCoor, int numObst, list <struct Coordinates> snakeBody, int end, bool eaten, int points);
+char detectCollision (list <struct Coordinates> snakeBody, vector <struct Coordinates> obstCoor);
+bool detectIfAte (list <struct Coordinates> snakeBody, struct Coordinates bonus);
+struct Coordinates generateBonuses (vector <struct Coordinates> obstCoor, list <struct Coordinates> snakeBody);
 void playGame(BITMAP* backgr, BITMAP* buffer, BITMAP* obst, BITMAP* snake, BITMAP* bonus, vector <struct Coordinates> obstCoor);
+void endGame(BITMAP* buffer);
 
 struct Coordinates {
        
@@ -131,113 +135,290 @@ vector <struct Coordinates> drawMap(BITMAP* background, BITMAP* obstacles, BITMA
 
 // function which makes double buffering
 
-void buffering (BITMAP* backgr, BITMAP* buff, BITMAP* obst, BITMAP* snake, BITMAP* bonus, vector <struct Coordinates> obstCoor, int numObst, int snake_x, int snake_y, int end) {
+void buffering (BITMAP* backgr, BITMAP* buff, BITMAP* obst, BITMAP* snake, BITMAP* bonus, struct Coordinates bonuses, vector <struct Coordinates> obstCoor, int numObst, list <struct Coordinates> snakeBody, int end, bool eaten, int points) {
      
-     if (end == 'x') {
-              
-         clear_to_color(buff, makecol(0,0,0));
-         textout_ex(buff,font,"Game Over",400,300 ,makecol(255,0,255),-1);
-         blit (buff, screen, 0, 0, 0, 0, buff->w, buff->h);   
-         readkey();    
-     }
+     list <struct Coordinates>::iterator it;
+     
      clear_to_color(buff, makecol(128,128,128));      
      blit(backgr, buff, 0, 0, 0, 0, backgr->w, backgr->h);
-     for (int i = 0; i < numObst; i++) {
-         
-         blit (obst, buff, 0, 0, obstCoor[i].x, obstCoor[i].y, obst->w, obst->h);    
+     for (int i = 0; i < obstCoor.size(); i++) {
              
+             blit (obst, buff, 0, 0, obstCoor[i].x, obstCoor[i].y, obst->w, obst->h);    
+                 
      }
-     blit(snake, buff, 0, 0, snake_x, snake_y, snake->w, snake->h);
-     blit (bonus, buff, 0, 0, 200, 150, bonus->w, bonus->h);
+     textprintf(buff,font,20,20,makecol(255,255,255),"Points: %d", points);
+     if (eaten == false) blit (bonus, buff, 0, 0, bonuses.x, bonuses.y, bonus->w, bonus->h);
+     for (it = snakeBody.begin(); it != snakeBody.end(); it++) blit (snake, buff, 0, 0, (*it).x, (*it).y, snake->w, snake->h);
      blit(buff, screen, 0, 0, 0, 0, 800, 600);
+
 };
 
 // function which detects a collision
 
-char detectCollision (int snake_x, int snake_y, vector <struct Coordinates> obstCoor) {
+char detectCollision (list <struct Coordinates> snakeBody, vector <struct Coordinates> obstCoor) {
+     
+         struct Coordinates snake;
+         snake = snakeBody.front();
          char end; 
+         list <struct Coordinates>::iterator it;
+         
          for (int i = 0; i < obstCoor.size(); i++) {
                  
-                 if ((snake_x + 31 >= obstCoor[i].x && snake_x <= obstCoor[i].x + 31) && (snake_y+31 >= obstCoor[i].y && snake_y <= obstCoor[i].y + 31)) {
+                 if ((snake.x + 31 >= obstCoor[i].x && snake.x <= obstCoor[i].x + 31) && (snake.y+31 >= obstCoor[i].y && snake.y <= obstCoor[i].y + 31)) {
                       end = 'x';
                       break;
                  }
-                 else if ((snake_y + 31 >= obstCoor[i].y && snake_y <= obstCoor[i].y + 31) && (snake_x+31 >= obstCoor[i].x && snake_x <= obstCoor[i].x + 31)) {
+                 else if ((snake.y + 31 >= obstCoor[i].y && snake.y <= obstCoor[i].y + 31) && (snake.x+31 >= obstCoor[i].x && snake.x <= obstCoor[i].x + 31)) {
                       end = 'x';
                       break;
                  }
-                 else if ((snake_x <= obstCoor[i].x + 31 && snake_x >= obstCoor[i].x) && (snake_y+31 >= obstCoor[i].y && snake_y <= obstCoor[i].y + 31)) {
+                 else if ((snake.x <= obstCoor[i].x + 31 && snake.x >= obstCoor[i].x) && (snake.y+31 >= obstCoor[i].y && snake.y <= obstCoor[i].y + 31)) {
                       end = 'x';
                       break;
                  }
-                 else if ((snake_y >= obstCoor[i].y && snake_y <= obstCoor[i].y + 31) && (snake_x+31 >= obstCoor[i].x && snake_x <= obstCoor[i].x + 31)) {
+                 else if ((snake.y >= obstCoor[i].y && snake.y <= obstCoor[i].y + 31) && (snake.x+31 >= obstCoor[i].x && snake.x <= obstCoor[i].x + 31)) {
                       end = 'x';     
                       break;
                  }
-                 else if (snake_x <= 0 || snake_y <= 0 || snake_x + 31 >= 800 || snake_y + 31 >= 600) {
-                 
+                 else if (snake.x <= 0 || snake.y <= 0 || snake.x + 31 >= 800 || snake.y + 31 >= 600) {
                       end = 'x';
                       break;
-                      
                  }
-             
          }
          
         return end;
 };
 
-// function which checks whether a bonus were eaten
+// function which checks whether a bonus was eaten
 
-bool detectIfAte (int snake_x, int snake_y, struct Coordinates bonus) {
+bool detectIfAte (list <struct Coordinates> snakeBody, struct Coordinates bonus) {
      
      bool eaten;
+     struct Coordinates snake;
      
-     if ((snake_x + 31 >= bonus.x && snake_x <= bonus.x + 31) && (snake_y+31 >= bonus.y && snake_y <= bonus.y + 31)) eaten = true; 
+     snake = snakeBody.front();
      
+     if ((snake.x + 31 >= bonus.x && snake.x <= bonus.x + 31) && (snake.y+31 >= bonus.y && snake.y <= bonus.y + 31)) eaten = true; 
+     else if ((snake.x <= bonus.x + 31 && snake.x >= bonus.x) && (snake.y+31 >= bonus.y && snake.y <= bonus.y + 31)) eaten = true;
+     else if ((snake.y + 31 >= bonus.y && snake.y <= bonus.y + 31) && (snake.x+31 >= bonus.x && snake.x <= bonus.x + 31)) eaten = true;
+     else if ((snake.y >= bonus.y && snake.y <= bonus.y + 31) && (snake.x+31 >= bonus.x && snake.x <= bonus.x + 31)) eaten = true;
+     
+     return eaten;
 };
 
+// function which generates bonuses
+
+struct Coordinates generateBonuses (vector <struct Coordinates> obstCoor, list <struct Coordinates> snakeBody) {
+  
+      struct Coordinates bonuses;
+      bool free = true;
+      int x,y;
+      int block = 0;
+      list <struct Coordinates>::iterator it;
+      
+      while (1) {
+            
+         block++;
+         if (block > 1000) break;
+         
+         srand (time(NULL));
+         x = rand() % 800;
+         y = rand() % 600;
+         
+         for (int k = 0; k < obstCoor.size(); k++) {
+         
+             if ((x + 31 >= obstCoor[k].x && x + 31 <= obstCoor[k].x + 31) && (y + 31 >= obstCoor[k].y && y + 31 <= obstCoor[k].y + 31)) {
+                      free = false;
+                      break;
+             }
+             else if ((y + 31 >= obstCoor[k].y && y + 31 <= obstCoor[k].y + 31) && (x >= obstCoor[k].x && x <= obstCoor[k].x + 31)) {
+                      free = false;
+                      break;
+             }
+             else if ((x >= obstCoor[k].x && x <= obstCoor[k].x + 31) && (y >= obstCoor[k].y && y <= obstCoor[k].y + 31)) {
+                      free = false;
+                      break;
+             }
+             else if ((y >= obstCoor[k].y && y <= obstCoor[k].y + 31) && (x + 31 >= obstCoor[k].x && x + 31 <= obstCoor[k].x + 31)) {
+                      free = false;     
+                      break;
+             }
+         }
+         if (x + 31 >= 800 || y + 31 >= 600) free = false;
+             
+         if (free == true) {
+         
+             for (it = snakeBody.begin(); it != snakeBody.end(); it++) {
+             
+                  if ((x >= (*it).x && x <= (*it).x + 31) && (y >= (*it).y && y <= (*it).y + 31)) {
+                  
+                     free = false;
+                     break;       
+                         
+                  }  
+             }       
+         }
+         
+         if (free == true) break;
+          
+      } 
+      
+      bonuses.x = x;
+      bonuses.y = y;
+      
+      return bonuses;
+       
+};
+
+// function which draws 'Game Over' screen
+
+void endGame(BITMAP* buffer) {
+     
+         while (!key[KEY_ESC]) {
+    
+         clear_to_color(buffer, makecol(0,0,0));
+         textout_ex(buffer,font,"Game Over",400,300 ,makecol(255,0,255),-1);
+         blit (buffer, screen, 0, 0, 0, 0, buffer->w, buffer->h);   
+         readkey();     
+          
+    }
+};
 // function which moves a snake
 
 void playGame (BITMAP* backgr, BITMAP* buffer, BITMAP* obst, BITMAP* snake, BITMAP* bonus, vector <struct Coordinates> obstCoor) {
-     
+    
+    struct Coordinates snakePart; 
     char before, end;
-    struct Coordinates bonus;
-    bonus.x = 200;
-    bonus.y = 150;
-    int snake_x = 100;
-    int snake_y = 100;
+    bool eaten = false;
+    struct Coordinates bonuses;
+    list <struct Coordinates> snakeBody;
+    bool started = false;
+    bonuses.x = 200;
+    bonuses.y = 150;
+    snakePart.x = 100;
+    snakePart.y = 100;
+    snakeBody.push_front(snakePart);
+    int points = 0;
+    
+    list <struct Coordinates>::iterator it;
+    
     while(!key[KEY_ESC]) {
                   
-         buffering (backgr, buffer, obst, snake, bonus, obstCoor, 25, snake_x, snake_y, end); 
+         buffering (backgr, buffer, obst, snake, bonus, bonuses, obstCoor, 25, snakeBody, end, eaten, points);
+         
          while (speed > 0) {                
                 
              if (key[KEY_LEFT]) {
-                snake_x--;
-                before = 'l';
+                     
+                if (before != 'r') {  
+                                     
+                    snakePart.x = snakeBody.front().x - 1;
+                    snakePart.y = snakeBody.front().y;
+                    snakeBody.push_front(snakePart);
+                    if (eaten == false) snakeBody.pop_back();
+                    before = 'l';
+                    
+                }
+                
              }
-             if (key[KEY_RIGHT]) {
-                snake_x++;
-                before = 'r';
+             else if (key[KEY_RIGHT]) {
+                 
+                if (before != 'l') {
+                                            
+                    snakePart.x = snakeBody.front().x + 1;
+                    snakePart.y = snakeBody.front().y;
+                    snakeBody.push_front(snakePart);
+                    if (eaten == false) snakeBody.pop_back();
+                    before = 'r';
+                    
+                }
+                
              }
-             if (key[KEY_UP]) {
-                snake_y--;
-                before = 'u';
+             else if (key[KEY_UP]) {
+                  
+                  if (before != 'd') {
+                                         
+                    snakePart.x = snakeBody.front().x;
+                    snakePart.y = snakeBody.front().y - 1;
+                    snakeBody.push_front(snakePart);
+                    if (eaten == false) snakeBody.pop_back();
+                    before = 'u';
+                  
+                  }
+                
              }
-             if (key[KEY_DOWN]) {
-                snake_y++;
-                before = 'd';
+             else if (key[KEY_DOWN]) {
+                   
+                   if (before != 'u') {
+                                           
+                        snakePart.x = snakeBody.front().x;
+                        snakePart.y = snakeBody.front().y + 1;
+                        snakeBody.push_front(snakePart);
+                        if (eaten == false) snakeBody.pop_back();
+                        before = 'd';
+                        
+                   }
+                
              }
              else {
                   
-                  if (before == 'l') snake_x--;
-                  if (before == 'r') snake_x++;
-                  if (before == 'u') snake_y--;
-                  if (before == 'd') snake_y++;     
+                  if (before == 'l') {
+                             
+                             snakePart.x = snakeBody.front().x - 1;
+                             snakePart.y = snakeBody.front().y;
+                             snakeBody.push_front(snakePart);
+                             if (eaten == false) snakeBody.pop_back();
+                             
+                  }
+                  if (before == 'r') {
+                             
+                             snakePart.x = snakeBody.front().x + 1;
+                             snakePart.y = snakeBody.front().y;
+                             snakeBody.push_front(snakePart);
+                             if (eaten == false) snakeBody.pop_back();
+                             
+                  }
+                  if (before == 'u') {
+                             
+                             snakePart.x = snakeBody.front().x;
+                             snakePart.y = snakeBody.front().y - 1;
+                             snakeBody.push_front(snakePart);
+                             if (eaten == false) snakeBody.pop_back();
+                             
+                  }
+                                
+                  if (before == 'd') {
+                             
+                             snakePart.x = snakeBody.front().x;
+                             snakePart.y = snakeBody.front().y + 1;
+                             snakeBody.push_front(snakePart);
+                             if (eaten == false) snakeBody.pop_back(); 
+                             
+                  }    
                   
              }
                 speed--;
          }
-         
-      end = detectCollision (snake_x, snake_y, obstCoor, buffer); 
+      
+      if (started == false && detectIfAte(snakeBody, bonuses) == true) {
+                  
+         started = true;
+         points = points + 10;
+      
+      }
+      
+      eaten = detectIfAte(snakeBody, bonuses); 
+        
+      if (started == true && eaten == false) {
+                  
+         started = false;
+         bonuses = generateBonuses(obstCoor, snakeBody);
+      
+      }
+      end = detectCollision (snakeBody, obstCoor); 
+      if (end == 'x') break;
+
     }
+    
+    endGame(buffer);
 };
