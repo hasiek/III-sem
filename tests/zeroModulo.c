@@ -3,6 +3,6 @@
 
 int main() {
 	
-	printf ("%d", 0%2);
+	printf ("%d", 359%26);
 	return 0;
 }
