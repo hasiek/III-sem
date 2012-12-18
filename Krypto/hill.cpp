@@ -9,6 +9,8 @@
 
 using namespace std;
 
+bool detIsReversible (int det);
+
 int main() {
     
     string key;
@@ -21,6 +23,7 @@ int main() {
     int det = 0;
     bool letter1 = true;
     bool letter2 = true;
+    bool isReversible = false;
     fstream in ("in.txt");
     fstream out ("out.txt");
     
@@ -28,7 +31,7 @@ int main() {
     
     cout << "Podaj czteroliterowy klucz.\n";
     
-    while (det == 0) {
+    while (isReversible == false || keyMatrix[0][1] != 0) {
 		
 		cin >> key;
     
@@ -38,8 +41,13 @@ int main() {
 		keyMatrix[1][1] = key[3] - 97;
 		
 		det = (keyMatrix[0][0] * keyMatrix[1][1]) - (keyMatrix[0][1] * keyMatrix[1][0]);
-		if (det != 0) cout << "Podano odpowiedni klucz, tekst zaszyfrowano.\n";
-		else cout << "Podaj inny klucz.\n";
+		while (det < 0) det += 26;
+		det = det % 26;
+		
+		isReversible = detIsReversible(det);
+		
+		if (isReversible == true && keyMatrix[0][1] == 0) cout << "Podano prawidlowy klucz, tekst zaszyfrowano.\n";
+		else cout << "Nieprawidlowy klucz, sprobuj jeszcze raz.\n";
 		
 	}
 	
@@ -117,3 +125,26 @@ int main() {
     return 0;
     
 }
+
+bool detIsReversible (int det) {
+	
+	int nwd, r;
+	int a = 26;
+	int b = det;
+	
+	r = a % b;
+	nwd = b;
+	
+	while (r != 0) {
+		
+		a = b;
+		b = r;
+		nwd = r;
+		r = a % b;
+		
+	}
+	
+	if (nwd == 1) return true;
+	else return false;
+	
+};
